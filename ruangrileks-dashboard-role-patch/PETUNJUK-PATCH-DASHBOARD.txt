@@ -1,0 +1,28 @@
+PATCH DASHBOARD BERDASARKAN PERAN - RUANGRILEKS
+
+Tujuan:
+- Menghilangkan teks placeholder pada dashboard Siswa dan Guru BK.
+- Menampilkan halaman dashboard yang berbeda sesuai peran.
+- Menggunakan layout utama layouts.app agar navigasi dan tombol Logout konsisten.
+- Memastikan label peran Guru BK tampil sebagai "Guru BK", bukan "guru_bk".
+- Dashboard Admin tetap memakai dashboard Admin yang sudah ada.
+
+Cara pemasangan:
+1. Pastikan salinan backup source code dan database sudah tersedia.
+2. Ekstrak isi ZIP ke C:\xampp\htdocs\ruangrileks.
+3. Izinkan Windows mengganti file ketika diminta.
+4. Jalankan dari PowerShell:
+   cd C:\xampp\htdocs\ruangrileks
+   php artisan view:clear
+5. Login ulang atau refresh dengan Ctrl+F5.
+
+File yang diganti:
+resources/views/dashboard/index.blade.php
+
+Catatan:
+- Patch ini tidak mengubah database atau migration.
+- Patch ini tidak mengubah controller, route, middleware, atau hak akses.
+- Route yang digunakan adalah route fitur yang sudah ada pada proyek:
+  screening.info, screening-history.index, edukasi, informasi-bk,
+  bk.shared-results.index, profile, dan beranda.
+- Admin tetap menggunakan halaman /admin yang sudah ada.

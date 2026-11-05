@@ -1,0 +1,23 @@
+PATCH NAVIGASI LOGOUT RUANGRILEKS
+
+File yang diperbarui:
+resources/views/layouts/app.blade.php
+
+Perubahan:
+- Menambahkan tombol Logout di navigasi desktop untuk pengguna yang sudah login.
+- Menambahkan tombol Logout di menu mobile.
+- Logout menggunakan POST ke route logout dan menyertakan @csrf.
+- Berlaku untuk Admin, Guru BK, dan Siswa karena menggunakan layout bersama.
+- Tidak mengubah route, controller, database, atau aturan role.
+
+Cara memasang:
+1. Tutup atau minimalkan aplikasi/editor yang sedang membuka file target.
+2. Ekstrak ZIP ke lokasi sementara.
+3. Salin folder resources dari hasil ekstrak ke C:\xampp\htdocs\ruangrileks\resources.
+4. Setujui penggabungan folder dan penggantian file app.blade.php.
+5. Dari folder proyek, jalankan: php artisan view:clear
+6. Refresh browser dengan Ctrl+F5.
+
+Catatan:
+- Jangan salin folder patch di luar project secara utuh.
+- File .env dan database tidak diubah.

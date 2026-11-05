@@ -1,0 +1,55 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+@layer theme {
+    :root {
+        --color-teal-50: #f0fdfa;
+        --color-teal-100: #ccfbf1;
+        --color-teal-200: #99f6e4;
+        --color-teal-300: #5eead4;
+        --color-teal-400: #2dd4bf;
+        --color-teal-500: #14b8a6;
+        --color-teal-600: #0d9488;
+        --color-teal-700: #0f766e;
+        --color-teal-800: #115e59;
+        --color-teal-900: #134e4a;
+        --color-cream-50: #fdf8f0;
+        --color-cream-100: #f9f0db;
+        --color-cream-200: #f3e3b5;
+        --color-cream-300: #e8d08a;
+        --color-cream-400: #d4b862;
+        --color-cream-500: #bfa13a;
+    }
+}
+
+@layer components {
+    /* Komponen khusus homepage agar kartu tetap ringkas dan mudah dibaca. */
+    .home-feature-card {
+        display: flex;
+        min-height: 15rem;
+        flex-direction: column;
+    }
+
+    .home-hero-actions a {
+        min-width: 10rem;
+    }
+}
+
+@media (max-width: 639px) {
+    .home-feature-card {
+        min-height: 0;
+    }
+
+    .home-hero-actions a {
+        width: 100%;
+    }
+}

@@ -1,0 +1,54 @@
+RUANGRILEKS — PATCH DASHBOARD ADMIN
+
+Patch ini menambahkan dashboard administrasi, manajemen akun siswa/Guru BK, serta manajemen artikel dan kategori.
+
+ISI UTAMA
+- Dashboard admin menampilkan jumlah akun dan artikel, bukan data hasil skrining.
+- Admin dapat melihat/mencari akun siswa dan Guru BK, mengubah nama/email, serta mengaktifkan/menonaktifkan akun.
+- Admin dapat membuat akun Guru BK. Role ditetapkan server sebagai guru_bk; role dari request tidak dipercaya.
+- Akun tidak dihapus agar relasi data tetap terjaga. Penonaktifan siswa mencabut akses berbagi aktif.
+- Artikel dapat dibuat, diedit, diterbitkan sebagai publik, disimpan sebagai draft, dan dihapus.
+- Kategori artikel dapat ditambahkan, diperbarui, dan dihapus. Artikel terkait dipertahankan ketika kategori dihapus.
+- Halaman Edukasi publik hanya menampilkan artikel berstatus terbit.
+
+FILE PENTING
+- database/migrations/2026_11_02_160000_add_is_active_to_users_table.php
+- database/migrations/2026_11_02_160100_create_article_categories_table.php
+- database/migrations/2026_11_02_160200_create_articles_table.php
+
+CARA MEMASANG
+1. Cadangkan folder C:\xampp\htdocs\ruangrileks.
+2. Ekstrak ZIP ke C:\xampp\htdocs sehingga file masuk ke folder ruangrileks yang sama.
+3. Pertahankan file .env dan phpunit.xml lokal. Keduanya tidak disertakan dalam patch.
+4. Pastikan .env aplikasi menunjuk ke database utama ruangrileks_v2.
+5. Jalankan migration aditif pada database utama:
+   cd C:\xampp\htdocs\ruangrileks
+   C:\xampp\php\php.exe artisan config:clear
+   C:\xampp\php\php.exe artisan migrate
+
+PENTING UNTUK TESTING
+- phpunit.xml lokal harus menunjuk ke database khusus ruangrileks_test, BUKAN ruangrileks_v2.
+- Jalankan tiga migration yang sama pada database ruangrileks_test secara terpisah.
+- Pastikan nama database benar sebelum menjalankan perintah.
+- Jangan gunakan migrate:fresh, db:wipe, atau reset database.
+
+Contoh PowerShell untuk migrasi database testing (sesuaikan kredensial bila MySQL lokal tidak menggunakan root tanpa password):
+   $env:DB_CONNECTION = "mysql"
+   $env:DB_HOST = "127.0.0.1"
+   $env:DB_PORT = "3306"
+   $env:DB_DATABASE = "ruangrileks_test"
+   $env:DB_URL = ""
+   C:\xampp\php\php.exe artisan config:clear
+   C:\xampp\php\php.exe artisan migrate --force
+   'DB_CONNECTION','DB_HOST','DB_PORT','DB_DATABASE','DB_URL' | ForEach-Object { Remove-Item "Env:$_" -ErrorAction SilentlyContinue }
+   C:\xampp\php\php.exe artisan config:clear
+
+SETELAH MIGRASI
+- Jalankan npm.cmd run build jika asset perlu dibangun ulang.
+- Jalankan C:\xampp\php\php.exe artisan test setelah memastikan phpunit.xml menggunakan ruangrileks_test.
+- Jangan menampilkan/menyalin isi .env atau kredensial database.
+
+BATASAN
+- Panel admin tidak menyediakan akses ke jawaban, hasil, atau riwayat skrining pribadi.
+- Informasi umum website (Tentang/Informasi BK) masih dikelola sebagai halaman statis, bukan melalui CMS.
+- Pengujian otomatis belum dijalankan pada lingkungan pembuat patch karena folder vendor tidak tersedia. Semua file PHP diperiksa dengan php -l.

@@ -1,0 +1,35 @@
+PATCH INSTRUMEN SKRINING RUANGRILEKS
+Instrumen aktif: Skala Psikologi Stres Akademik pada Siswa SMA
+Sumber: Sinadia & Gandey (2024), SUMIKOLAH: Jurnal Ilmu Pendidikan, 2(2), 127-138.
+
+ISI PATCH
+- Mengganti pengisian baru menjadi 16 butir berbahasa Indonesia dari Tabel 1 artikel.
+- Menggunakan lima pilihan frekuensi: Tidak pernah, Sangat jarang, Kadang-kadang, Sering, Selalu.
+- Menampilkan hasil secara deskriptif berupa jumlah pilihan respons keseluruhan dan per empat komponen awal.
+- Tidak menghitung skor total, persentase, kategori rendah/sedang/tinggi, atau diagnosis karena artikel tidak memberikan kunci skoring maupun nilai ambang.
+- Menjaga agar hasil DEMO lama tetap dapat dibaca pada riwayat dan detail.
+- Memperbarui tampilan berbagi hasil agar Guru BK membaca butir dan jawaban dari versi instrumen yang benar.
+- Menambah/memperbarui pengujian fitur skrining, riwayat, dan berbagi.
+
+CARA MEMASANG
+1. Pastikan berada di folder C:\xampp\htdocs\ruangrileks.
+2. Buat backup folder proyek dan database sebelum menimpa file.
+3. Ekstrak seluruh isi ZIP ini ke C:\xampp\htdocs\ruangrileks dengan mempertahankan struktur folder.
+4. Tidak ada migration database baru dan tidak perlu mengubah .env.
+5. Buka PowerShell pada folder proyek lalu jalankan:
+
+   php artisan view:clear
+   npm.cmd run build
+   php artisan test
+
+CATATAN PENTING
+- Jangan menjalankan migrate:fresh.
+- Patch ini tidak mengganti file navigasi umum atau file fitur notifikasi yang sudah dipasang.
+- Butir nomor 12 pada Tabel 1 tercetak dengan redaksi yang tampak tidak lengkap: "Saya merasa tidak nyaman ketika orang tua saya bertengkar hasil belajar saya yang buruk." Redaksi pada patch dipertahankan sesuai sumber. Konfirmasikan redaksinya kepada dosen pembimbing/penulis sebelum pengumpulan data penelitian sebenarnya.
+- Artikel melaporkan sampel 131 siswa kelas XI dan coefficient alpha 0,75. Struktur awal memiliki empat komponen; analisis konstruk artikel menghasilkan enam faktor dan scree plot menunjukkan dua faktor dominan. Generalisasi ke sekolah/populasi lain tetap perlu diuji.
+- Patch ini tidak menyebut instrumen sebagai SIVASS. Ini adalah skala Sinadia & Gandey (2024).
+- Artikel tidak menetapkan bobot skor atau cut-off; hasil aplikasi hanya deskriptif dan bukan diagnosis.
+- Pemeriksaan sintaks PHP dilakukan saat penyusunan patch. Test suite Laravel harus dijalankan pada komputer lokal setelah patch dipasang karena folder vendor tidak disertakan pada source upload.
+
+REFERENSI
+Sinadia, A. R., & Gandey, G. G. G. (2024). Pembuktian Validitas dan Estimasi Reliabilitas Skala Psikologi Stres Akademik pada Siswa SMA. SUMIKOLAH: Jurnal Ilmu Pendidikan, 2(2), 127-138. https://doi.org/10.31154/sjip.v2i2.1154.127-138

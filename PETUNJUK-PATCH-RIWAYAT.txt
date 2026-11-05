@@ -1,0 +1,23 @@
+PETUNJUK PATCH FITUR RIWAYAT SKRINING - RUANGRILEKS
+
+1. Buat salinan cadangan folder project lokal sebelum menyalin patch.
+2. Ekstrak isi ZIP ini langsung ke root project Laravel, misalnya:
+   C:\xampp\htdocs\ruangrileks
+3. Izinkan Windows mengganti file yang memang sudah ada. File baru akan ditempatkan sesuai struktur folder.
+4. Patch ini tidak menyertakan atau mengubah .env, vendor, node_modules, database, maupun file migrasi.
+5. Tidak perlu menjalankan migrate atau migrate:fresh.
+6. Setelah menyalin patch, dari PowerShell di folder project jalankan:
+   C:\xampp\php\php.exe artisan optimize:clear
+   C:\xampp\php\php.exe artisan route:list --name=screening-history
+   npm.cmd run build
+7. Sebelum menjalankan tes, pastikan konfigurasi PHPUnit menggunakan database testing yang aman. Tes fitur menggunakan DatabaseTransactions dan tidak menjalankan migrasi.
+   C:\xampp\php\php.exe artisan test --filter=ScreeningHistoryTest
+
+Route baru:
+- GET /riwayat-skrining
+- DELETE /riwayat-skrining/{id}
+
+Detail hasil menggunakan route yang sudah ada:
+- GET /skrining/hasil/{id}
+
+Akses riwayat dan detail tersimpan dibatasi untuk siswa pemilik hasil yang memiliki consent storage = true.

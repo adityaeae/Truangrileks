@@ -1,0 +1,66 @@
+PATCH FITUR BERBAGI HASIL KEPADA GURU BK — RUANGRILEKS
+
+ISI PATCH
+- Siswa dapat membagikan satu hasil DEMO tersimpan kepada akun guru BK yang dipilih.
+- Persetujuan berbagi terpisah dari persetujuan penyimpanan.
+- Guru BK hanya dapat melihat hasil yang dibagikan kepada akun tersebut.
+- Siswa dapat mencabut akses kapan saja.
+- Akses yang dicabut tidak lagi dapat dibuka guru BK; catatan persetujuan dan pencabutan tetap disimpan.
+
+FILE DAN DATABASE
+Patch menambahkan migration baru:
+database/migrations/2026_11_02_140000_create_screening_result_shares_table.php
+
+Migration menambahkan tabel baru `screening_result_shares`. Migration lama tidak diubah. Tidak ada perubahan .env, Composer, npm, atau homepage.
+
+CARA MEMASANG
+1. Hentikan server Laravel sementara.
+2. Salin folder project sebagai cadangan.
+3. Ekstrak seluruh isi ZIP ke root project C:\xampp\htdocs\ruangrileks dan izinkan file patch mengganti file yang sama.
+4. Pastikan .env tetap milik project lokal dan DB_DATABASE mengarah ke ruangrileks_v2.
+5. Jalankan migration tambahan pada database aplikasi:
+
+   C:\xampp\php\php.exe artisan migrate --path=database/migrations/2026_11_02_140000_create_screening_result_shares_table.php
+
+   Perintah di atas hanya menjalankan migration baru yang menambah tabel berbagi. Tidak menggunakan migrate:fresh dan tidak menghapus tabel.
+
+6. Terapkan migration yang sama pada database testing agar test dapat berjalan. Jalankan perintah berikut di PowerShell dari root project:
+
+   $env:DB_CONNECTION = "mysql"
+   $env:DB_HOST = "127.0.0.1"
+   $env:DB_PORT = "3306"
+   $env:DB_DATABASE = "ruangrileks_test"
+   $env:DB_URL = ""
+   C:\xampp\php\php.exe artisan migrate --path=database/migrations/2026_11_02_140000_create_screening_result_shares_table.php --force
+
+   Setelah migration sukses, bersihkan variabel sementara:
+
+   'DB_CONNECTION','DB_HOST','DB_PORT','DB_DATABASE','DB_URL' | ForEach-Object { Remove-Item "Env:$_" -ErrorAction SilentlyContinue }
+   C:\xampp\php\php.exe artisan config:clear
+
+   Pastikan phpunit.xml tetap menunjuk ke database `ruangrileks_test`, bukan `ruangrileks_v2`.
+
+7. Jalankan test fitur berbagi terlebih dahulu:
+
+   C:\xampp\php\php.exe artisan test --filter=ScreeningSharingTest
+
+8. Jika lulus, jalankan seluruh pengujian:
+
+   C:\xampp\php\php.exe artisan test
+
+ROUTE BARU
+Siswa:
+- GET    /riwayat-skrining/{resultId}/bagikan
+- POST   /riwayat-skrining/{resultId}/bagikan
+- DELETE /riwayat-skrining/{resultId}/bagikan/{shareId}
+
+Guru BK:
+- GET    /bk/hasil-dibagikan
+- GET    /bk/hasil-dibagikan/{shareId}
+
+PENTING
+- Jangan menjalankan migrate:fresh atau menghapus database.
+- Jangan mengarahkan PHPUnit ke ruangrileks_v2.
+- Jangan membagikan hasil yang tidak memiliki persetujuan penyimpanan.
+- Pastikan akun guru BK dibuat melalui proses administratif, bukan registrasi publik.
+- Hasil ini tetap berstatus DEMO, bukan diagnosis atau penilaian psikologis tervalidasi.

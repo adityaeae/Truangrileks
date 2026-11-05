@@ -1,0 +1,26 @@
+PATCH DASHBOARD SISWA & GURU BK - RUANGRILEKS
+
+Tujuan:
+- Menghilangkan teks placeholder pada dashboard Siswa dan Guru BK.
+- Menampilkan layanan yang relevan berdasarkan role pengguna.
+- Menggunakan layouts.app sehingga navbar dan Logout konsisten.
+- Dashboard Admin tetap menggunakan halaman manajemen khusus di /admin.
+
+CARA PEMASANGAN:
+1. Pastikan backup source code dan database tersedia.
+2. Ekstrak ISI ZIP (bukan folder ZIP pembungkus) ke:
+   C:\xampp\htdocs\ruangrileks
+3. Jika diminta, pilih Replace untuk file yang ada.
+4. Pastikan file ini tertimpa:
+   C:\xampp\htdocs\ruangrileks\resources\views\dashboard\index.blade.php
+5. Jalankan:
+   cd C:\xampp\htdocs\ruangrileks
+   php artisan view:clear
+6. Refresh browser dengan Ctrl+F5 atau login ulang.
+
+Yang berubah:
+- Dashboard Siswa: Mulai Skrining, Riwayat Skrining, Materi Edukasi, Informasi BK, profil, dan catatan privasi.
+- Dashboard Guru BK: Hasil yang Dibagikan, Informasi BK, profil, dan batas akses hasil siswa.
+- Dashboard Admin: tetap memakai dashboard pengelolaan khusus pada /admin; tidak ditimpa oleh patch ini.
+
+Patch hanya mengganti satu file Blade. Tidak ada migrasi/database/controller/route yang diubah.

@@ -1,0 +1,31 @@
+PATCH RINGKASAN HASIL SKRINING GURU BK
+
+Isi patch:
+1. app/Http/Controllers/BK/SharedScreeningController.php
+   Menghitung distribusi respons pada masing-masing komponen dari jawaban yang tersimpan untuk hasil yang dibagikan.
+2. resources/views/bk/shares/show.blade.php
+   Menampilkan distribusi pilihan jawaban keseluruhan dan empat komponen awal dengan bar proporsional. Bar hanya memvisualisasikan frekuensi respons, bukan skor atau tingkat stres.
+3. tests/Feature/ScreeningSharingTest.php
+   Menambahkan pengujian bahwa Guru BK melihat distribusi deskriptif empat komponen pada hasil yang dibagikan.
+
+CARA MEMASANG
+1. Buat backup source code dan database terlebih dahulu.
+2. Ekstrak ZIP ke C:\xampp\htdocs\ruangrileks.
+3. Pilih Replace files jika diminta.
+4. Jalankan:
+   php artisan view:clear
+   php artisan test --filter=ScreeningSharingTest
+   php artisan test
+
+Tidak ada migration database baru dan tidak ada perubahan pada skema database.
+Tidak perlu mengubah .env atau memasang paket tambahan.
+
+PENGAMANAN
+- Halaman tetap memakai activeSharesQuery yang membatasi hasil hanya pada guru BK pemilik akses berbagi aktif.
+- Akses yang telah dicabut tetap tidak dapat dibuka.
+- Ringkasan dihitung dari jawaban pada hasil yang dibagikan tersebut.
+- Tidak ada catatan pribadi siswa yang ditampilkan.
+- Tidak menghitung skor total, kategori rendah/sedang/tinggi, atau diagnosis.
+
+ROLLBACK
+Jika ingin mengembalikan versi sebelum patch, pulihkan tiga file yang sama dari folder backup Source_Code_Full.
